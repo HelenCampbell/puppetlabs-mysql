@@ -34,9 +34,7 @@ Puppet::Type.type(:mysql_datadir).provide(:mysql, parent: Puppet::Provider::Mysq
 
     opts = [defaults_extra_file]
     %w[basedir datadir user].each do |opt|
-      # rubocop:disable Security/Eval
-      val = eval(opt)
-      # rubocop:enable Security/Eval
+      val = eval(opt) # rubocop:disable Security/Eval
       opts << "--#{opt}=#{val}" unless val.nil?
     end
 
@@ -57,9 +55,7 @@ Puppet::Type.type(:mysql_datadir).provide(:mysql, parent: Puppet::Provider::Mysq
   end
 
   def destroy
-    # rubocop:disable Lint/UselessAssignment
-    name = @resource[:name]
-    # rubocop:enable Lint/UselessAssignment
+    name = @resource[:name] # rubocop:disable Lint/UselessAssignment
     raise ArgumentError, 'ERROR: Resource can not be removed'
   end
 
